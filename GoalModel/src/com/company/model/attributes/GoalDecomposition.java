@@ -19,16 +19,27 @@ public class GoalDecomposition extends JSONGoalMapper {
 
     public void setModelObject(JSONObject gdJSONObject) {
         this.modelObject = gdJSONObject;
-        this.sourceGoalID = ((String) jsonObjectRetrieval(gdJSONObject, "source"));
-        this.decType =((String) jsonObjectRetrieval(gdJSONObject, "decompositionType"));
+
+        this.sourceGoalID = stringToLowercase(
+                removeNullValue( getDefaultGoalValue(),
+                        (String) jsonObjectRetrieval(gdJSONObject, "source")));
+
+        this.decType =changeDecompositon(
+                (String) jsonObjectRetrieval(gdJSONObject, "decompositionType"));
 
         //Loop the  target json array
         JSONArray target = (JSONArray) jsonObjectRetrieval(gdJSONObject, "target");
         for (int t = 0; t < target.size(); t++){
-            this.targetGoalID = ((String) jsonObjectRetrieval(target,t,"goal"));
-            this.contextID = ((String) jsonObjectRetrieval(target,t, "context"));
 
-            targetList.add(
+            this.targetGoalID = stringToLowercase(
+                    removeNullValue( getDefaultGoalValue(),
+                            (String) jsonObjectRetrieval(target,t,"goal") ) );
+
+            this.contextID = stringToLowercase(
+                    removeNullValue( getDefaultContextValue(),
+                            (String) jsonObjectRetrieval(target,t, "context")));
+
+                    targetList.add(
                     new String[]{this.targetGoalID, this.contextID});
             this.contextID = null;
             this.targetGoalID = null;

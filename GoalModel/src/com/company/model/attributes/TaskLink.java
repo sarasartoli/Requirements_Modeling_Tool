@@ -20,14 +20,23 @@ public class TaskLink extends JSONGoalMapper {
 
     public void setModelJSONObject(JSONObject tlJDONObject) {
         this.modelJSONObject = tlJDONObject;
-        this.sourceGoalID = ((String) jsonObjectRetrieval(tlJDONObject, "source"));
+
+        this.sourceGoalID = stringToLowercase(
+                removeNullValue( getDefaultGoalValue(),
+                        (String) jsonObjectRetrieval(tlJDONObject, "source")));
 
         //JSONObject target = (JSONObject) jsonObjectRetrieval(tlJDONObject, "target");
 
         JSONArray target = (JSONArray) jsonObjectRetrieval(tlJDONObject, "target");
         for (int t = 0; t < target.size(); t++) {
-            this.targetTaskID = ((String) jsonObjectRetrieval(target, t, "task"));
-            this.contextID = ((String) jsonObjectRetrieval(target, t, "context"));
+
+            this.targetTaskID = stringToLowercase(
+                    removeNullValue( getDefaultGoalValue(),
+                            (String) jsonObjectRetrieval(target, t, "task")));
+
+            this.contextID = stringToLowercase(
+                    removeNullValue( getDefaultContextValue(),
+                            (String) jsonObjectRetrieval(target, t, "context")));
 
             this.targetList.add(
                     new String[]{this.targetTaskID, this.contextID});

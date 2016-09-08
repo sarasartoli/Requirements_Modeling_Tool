@@ -1,0 +1,7 @@
+GoalModel/.idea/
+GoalModel/out/
+*.sp
+*.zip
+*.json
+*.MF
+GoalModel/GoalModel.iml

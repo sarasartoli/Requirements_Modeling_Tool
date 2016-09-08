@@ -27,7 +27,7 @@ public class Goal extends JSONGoalMapper {
 
     public void setModelJSONObject(JSONObject modelJSONObject) {
         this.modelJSONObject = modelJSONObject;
-        this.id = (String) jsonObjectRetrieval(modelJSONObject,"id");
+        this.id = stringToLowercase((String) jsonObjectRetrieval(modelJSONObject,"id"));
         this.name = ((String) jsonObjectRetrieval(modelJSONObject,"name"));
         this.rootGoal = ((boolean) jsonObjectRetrieval(modelJSONObject,"rootGoal"));
         }

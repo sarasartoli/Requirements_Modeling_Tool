@@ -11,6 +11,22 @@ import java.util.Collections;
  */
 public class JSONGoalMapper {
 
+    private String defaultContextValue = "noContext";
+    private String defaultGoalValue = "noGoal";
+    private String defaultTaskValue = "noTask";
+
+    public String getDefaultContextValue() {
+        return defaultContextValue;
+    }
+
+    public String getDefaultGoalValue() {
+        return defaultGoalValue;
+    }
+
+    public String getDefaultTaskValue() {
+        return defaultTaskValue;
+    }
+
     protected Object jsonObjectRetrieval (JSONObject object, String key){
         return object.get(key);
     }
@@ -37,6 +53,49 @@ public class JSONGoalMapper {
     protected Object jsonObjectRetrieval (JSONArray object, int arrayIndex, String key ){
         JSONObject object1 = (JSONObject)object.get(arrayIndex);
         return object1.get(key);
+    }
+
+    protected String stringToLowercase(String value) {
+        if (value != null && !value.isEmpty()) {
+            String truck = value.substring(0,1).toLowerCase();
+            value = truck.concat(value.substring(1));
+        }
+        return value;
+    }
+
+    protected String changeDecompositon(String value) {
+        if (value != null && !value.isEmpty()) {
+            switch (value){
+                case "and":
+                    value = "andDec";
+                    break;
+                case "or":
+                    value = "orDec";
+                    break;
+                case "":
+                    value = "noDec";
+                    break;
+                default:
+                    break;
+
+            }
+        }
+        return value;
+    }
+
+    /**
+     * Remove null values from the code and replace with default value
+     * @param oldValue
+     * @param newValue
+     * @return
+     */
+    protected String removeNullValue(String newValue, String oldValue){
+        if (oldValue != null && !oldValue.isEmpty()) {
+            return oldValue;
+        }
+        else{
+            return newValue;
+        }
     }
 
 }

@@ -22,7 +22,7 @@ public class DomainAgent extends JSONGoalMapper {
     public void setModelJSONObject(JSONObject modelJSONObject) {
         this.modelJSONObject = modelJSONObject;
         
-        this.id = (String) jsonObjectRetrieval(modelJSONObject, "id");
+        this.id = stringToLowercase((String) jsonObjectRetrieval(modelJSONObject, "id")).toLowerCase();
         this.name = (String) jsonObjectRetrieval(modelJSONObject, "name");
         this.agentType = (String) jsonObjectRetrieval(modelJSONObject, "type");
     }

@@ -7,21 +7,38 @@ import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
+/**
+ *
+ */
 public class Main {
 
     public static void main(String[] args) {
-        File jFile = new File("/Users/sarasartoli/Desktop/workspace/GoalModel/data/json/goalsample1.json");
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println();
+        System.out.print("Begin analysis, by entering the json file eg " +
+                "\"C:\\Users\\username\\document\\samplefile.json\"");
+
+        System.out.print("\nPlease enter source file: ");
+        String source = scanner.next();
+        //String source = "resources\\json\\elevatorx.json";
+
+        File jFile = new File(source);
+        System.out.print("\nPlease enter destination folder: ");
+        String destination = scanner.next();
+        //String destination = "resources";
+        System.out.println();
+
         JSONGoalFileReader jsonFile = new JSONGoalFileReader(jFile);
 
         try {
 
             GoalModel goalModel = new GoalModel(jsonFile.parseFile());
-            System.out.println(goalModel.getActionTaskList().get(1).getId());
-
             ASPGoalFileWriter aspfile = new ASPGoalFileWriter();
-            aspfile.writeToASP(goalModel, jsonFile.getFileTitle());
-            System.out.println(goalModel.getGoalList().get(1).getId());
+            aspfile.writeToASP(goalModel, jsonFile.getFileTitle(), destination);
 
         } catch (IOException e) {
             e.printStackTrace();

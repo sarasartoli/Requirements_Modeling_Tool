@@ -19,15 +19,29 @@ public class TaskDecomposition extends JSONGoalMapper {
 
     public void setModelJSONObject(JSONObject modelJSONObject) {
         this.modelJSONObject = modelJSONObject;
-        this.sourceTaskID =((String) jsonObjectRetrieval(modelJSONObject,"source"));
-        this.decType =((String) jsonObjectRetrieval(modelJSONObject,"decompositionType"));
+
+        this.sourceTaskID =stringToLowercase(
+                removeNullValue( getDefaultTaskValue(),
+                        (String) jsonObjectRetrieval(modelJSONObject,"source")));
+
+        this.decType = changeDecompositon((String) jsonObjectRetrieval(modelJSONObject,"decompositionType"));
 
         JSONArray target = (JSONArray) jsonObjectRetrieval(modelJSONObject, "target");
         if (!target.isEmpty() && target != null){
             for (int t = 0; t < target.size(); t++) {
-                this.targetTaskID = ((String) jsonObjectRetrieval(target, t, "task"));
-                this.contextID = ((String) jsonObjectRetrieval(target, t, "context"));
 
+                this.targetTaskID = stringToLowercase(
+                        removeNullValue( getDefaultTaskValue(),
+                                (String) jsonObjectRetrieval(target, t, "task")));
+
+                this.contextID = stringToLowercase(
+                        removeNullValue( getDefaultContextValue(),
+                                (String) jsonObjectRetrieval(target, t, "context")));
+
+                /*if (contextID != null && contextID.isEmpty()){
+                    this.contextID.toLowerCase();
+                }
+                */
                 this.targetList.add(
                         new String[]{this.targetTaskID, this.contextID});
             }

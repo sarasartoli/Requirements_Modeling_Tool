@@ -9,8 +9,6 @@ import java.util.*;
 
 /**
  * Created by E5-571 on 7/25/2016.
- */
-/**
  * Json Parser feeds the goalModel to each Object
  */
 
@@ -46,13 +44,13 @@ public class GoalModel {
             if( initGoalModel.containsKey(k) ) {
 
                 for (String val : v) {
-                    System.out.println("accessing "+ val);
+                    System.out.println("Accessing "+ val);
                     this.modelObjects = (JSONArray) mapper.jsonObjectRetrieval(initGoalModel, k, val, -1, true);
                     generateModelObjects(this.modelObjects, val);
 
                     //String ves = taskDecomposition.getModelClassName();
                     //compare map array item value woth class to set each object
-                    System.out.println("done parsing " +val);
+                    System.out.println("Done parsing " +val);
 
                 }
             }

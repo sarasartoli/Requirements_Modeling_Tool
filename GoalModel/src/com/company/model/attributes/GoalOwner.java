@@ -22,8 +22,10 @@ public class GoalOwner extends JSONGoalMapper {
 
     public void setModelJSONObject(JSONObject goJSONObject) {
         this.modelJSONObject = goJSONObject;
-        this.goal = ((String) jsonObjectRetrieval(goJSONObject, "goal"));
-        this.agent = ((String) jsonObjectRetrieval(goJSONObject, "agent"));
+        this.goal = stringToLowercase(
+                removeNullValue( getDefaultGoalValue(),
+                        (String) jsonObjectRetrieval(goJSONObject, "goal")));
+        this.agent = stringToLowercase((String) jsonObjectRetrieval(goJSONObject, "agent"));
     }
 
     public String getGoal() {
